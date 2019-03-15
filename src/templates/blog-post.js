@@ -1,4 +1,5 @@
 import React from "react"
+import { graphql } from "gatsby"
 import { createMarkup } from "../helpers"
 import Layout from "../components/layout"
 

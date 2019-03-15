@@ -3,21 +3,31 @@ import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 import { createSlug, printObj, mapEdgesToNodes, createMarkup } from "../helpers"
 
-const IndexPage = ({ data }) => (
-  <Layout>
-    {printObj(data)}
-    <ul>
-      {mapEdgesToNodes(data.allSanityPost).map(post => (
-        <li key={post._id}>
-          <h1>
-            <Link to={createSlug(post.title)}>{post.title}</Link>
-          </h1>
-          <div dangerouslySetInnerHTML={createMarkup(post.excerpt)} />
-        </li>
-      ))}
-    </ul>
-  </Layout>
-)
+class IndexPage extends React.Component {
+  render() {
+    const { data } = this.props
+
+    const readyToBePublishedPosts = mapEdgesToNodes(data.allSanityPost).filter(
+      post => post && post.isReady
+    )
+
+    return (
+      <Layout>
+        {printObj(readyToBePublishedPosts)}
+        <ul>
+          {readyToBePublishedPosts.map(post => (
+            <li key={post._id}>
+              <h1>
+                <Link to={createSlug(post.title)}>{post.title}</Link>
+              </h1>
+              <div dangerouslySetInnerHTML={createMarkup(post.excerpt)} />
+            </li>
+          ))}
+        </ul>
+      </Layout>
+    )
+  }
+}
 
 export default IndexPage
 
@@ -35,6 +45,7 @@ export const allSanityPostQuery = graphql`
           body
           excerpt
           publishedAt
+          isReady
         }
       }
     }

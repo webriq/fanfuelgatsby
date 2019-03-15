@@ -9,7 +9,7 @@ function mapEdgesToNodes(data) {
 function createSlug(text) {
   return slugify(text, {
     replacement: "-", // replace spaces with replacement
-    remove: null, // regex to remove characters
+    remove: /[*+~.()'"!:@]/g, // regex to remove characters
     lower: true, // result in lower case
   })
 }
@@ -24,13 +24,17 @@ exports.createPages = ({ graphql, actions }) => {
           node {
             id
             title
+            isReady
           }
         }
       }
     }
   `).then(result => {
-    mapEdgesToNodes(result.data.allSanityPost).map(post => {
-      console.log(post)
+    const readyToBePublishedPosts = mapEdgesToNodes(
+      result.data.allSanityPost
+    ).filter(post => post && post.isReady)
+
+    readyToBePublishedPosts.map(post => {
       createPage({
         path: createSlug(post.title),
         component: path.resolve(`./src/templates/blog-post.js`),
