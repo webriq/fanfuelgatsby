@@ -13,7 +13,6 @@ class IndexPage extends React.Component {
 
     return (
       <Layout>
-        {printObj(readyToBePublishedPosts)}
         <ul>
           {readyToBePublishedPosts.map(post => (
             <li key={post._id}>
