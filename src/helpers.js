@@ -16,7 +16,7 @@ export function printObj(data) {
 }
 
 export function createMarkup(content) {
-  return { __html: marked(content) }
+  return { __html: marked(content || "") }
 }
 
 export function createSlug(text) {
