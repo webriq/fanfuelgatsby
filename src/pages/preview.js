@@ -28,10 +28,15 @@ class PreviewPage extends React.Component {
     client
       .fetch(query, params)
       .then(post => {
-        this.setState({
-          isLoaded: true,
-          post: post[0],
-        })
+        post && post[0]
+          ? this.setState({
+              isLoaded: true,
+              post: post[0],
+            })
+          : this.setState({
+              isLoaded: true,
+              error: { message: "Unable to get post" },
+            })
       })
       .catch(error => {
         this.setState({
