@@ -1,7 +1,7 @@
 import React from "react"
 import Layout from "../components/layout"
 import { createMarkup } from "../helpers"
-import { sanityClient } from "@sanity/client"
+import sanityClient from "@sanity/client"
 
 class PreviewPage extends React.Component {
   constructor(props) {
