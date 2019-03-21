@@ -1,7 +1,7 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
-import { createSlug, printObj, mapEdgesToNodes, createMarkup } from "../helpers"
+import { createSlug, mapEdgesToNodes, createMarkup } from "../helpers"
 
 class IndexPage extends React.Component {
   render() {
