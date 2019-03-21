@@ -1,13 +1,7 @@
 import React from "react"
 import Layout from "../components/layout"
 import { createMarkup } from "../helpers"
-const sanityClient = require("@sanity/client")
-const client = sanityClient({
-  projectId: process.env.SANITY_PROJECT_ID,
-  dataset: process.env.SANITY_DATASET,
-  token: process.env.SANITY_API_READ_TOKEN, // or leave blank to be anonymous user
-  useCdn: false, // `false` if you want to ensure fresh data
-})
+import { sanityClient } from "@sanity/client"
 
 class PreviewPage extends React.Component {
   constructor(props) {
@@ -23,6 +17,13 @@ class PreviewPage extends React.Component {
     const query = `*[_type == 'post' && _id == $id]`
     const currentPostId = this.props.location.search.split("=")[1]
     const params = { id: currentPostId }
+
+    const client = sanityClient({
+      projectId: process.env.SANITY_PROJECT_ID,
+      dataset: process.env.SANITY_DATASET,
+      token: process.env.SANITY_API_READ_TOKEN, // or leave blank to be anonymous user
+      useCdn: false, // `false` if you want to ensure fresh data
+    })
 
     client
       .fetch(query, params)
