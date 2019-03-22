@@ -21,12 +21,10 @@ module.exports = {
       resolve: "gatsby-source-sanity",
       options: {
         projectId: process.env.GATSBY_SANITY_PROJECT_ID || "qypammht",
-        dataset: process.env.GATSBY_SANITY_DATASET,
+        dataset: process.env.GATSBY_SANITY_DATASET || "production",
         // a token with read permissions is required
         // if you have a private dataset
         token: process.env.GATSBY_SANITY_API_READ_TOKEN,
-        watchMode: true,
-        overlayDrafts: true,
       },
     },
     `gatsby-transformer-sharp`,

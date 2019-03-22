@@ -13,7 +13,7 @@ class PreviewPage extends React.Component {
     }
     this.client = sanityClient({
       projectId: process.env.GATSBY_SANITY_PROJECT_ID || "qypammht",
-      dataset: process.env.GATSBY_SANITY_DATASET,
+      dataset: process.env.GATSBY_SANITY_DATASET || "production",
       token: process.env.GATSBY_SANITY_API_READ_TOKEN, // or leave blank to be anonymous user
       useCdn: false, // `false` if you want to ensure fresh data,
       ignoreBrowserWarning: true,
