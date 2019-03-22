@@ -20,11 +20,11 @@ module.exports = {
     {
       resolve: "gatsby-source-sanity",
       options: {
-        projectId: process.env.SANITY_PROJECT_ID || "qypammht",
-        dataset: process.env.SANITY_DATASET,
+        projectId: process.env.GATSBY_SANITY_PROJECT_ID || "qypammht",
+        dataset: process.env.GATSBY_SANITY_DATASET,
         // a token with read permissions is required
         // if you have a private dataset
-        token: process.env.SANITY_API_READ_TOKEN,
+        token: process.env.GATSBY_SANITY_API_READ_TOKEN,
         watchMode: true,
         overlayDrafts: true,
       },
