@@ -6,7 +6,7 @@ module.exports = {
   siteMetadata: {
     title: `FanFuel Site`,
     description: `Your sports news website`,
-    author: `@webriq`,
+    author: `FanfuelHQ`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

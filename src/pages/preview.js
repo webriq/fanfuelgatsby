@@ -3,6 +3,7 @@ import Layout from "../components/layout"
 import { createMarkup } from "../helpers"
 import * as sanityClient from "@sanity/client"
 import style from "./preview.module.css"
+import PostDetails from "../components/post_details"
 
 class PreviewPage extends React.Component {
   constructor(props) {
@@ -59,7 +60,9 @@ class PreviewPage extends React.Component {
     } else if (!isLoaded) {
       return (
         <Layout>
-          <p>Fetching data...</p>
+          <em>Fetching data for preview...</em>
+          <br />
+          <br />
         </Layout>
       )
     } else {
@@ -72,8 +75,7 @@ class PreviewPage extends React.Component {
           ) : (
             ``
           )}
-          <h1>{post.title}</h1>
-          <div dangerouslySetInnerHTML={createMarkup(post.body)} />
+          <PostDetails data={post} />
         </Layout>
       )
     }

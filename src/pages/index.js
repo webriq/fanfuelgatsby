@@ -1,14 +1,17 @@
 import React from "react"
-import { Link, graphql } from "gatsby"
+import { graphql } from "gatsby"
 import Layout from "../components/layout"
-import Img from "gatsby-image"
-import { createSlug, mapEdgesToNodes, createMarkup } from "../helpers"
+import { mapEdgesToNodes } from "../helpers"
+import PostDetails from "../components/post_details"
 
 class IndexPage extends React.Component {
   render() {
     const { data } = this.props
     const readyToBePublishedPosts = mapEdgesToNodes(data.allSanityPost).filter(
-      post => post && post.isReady
+      post =>
+        post &&
+        post.isReady &&
+        new Date().getTime() >= new Date(post.publishedAt).getTime()
     )
 
     return (
@@ -16,15 +19,7 @@ class IndexPage extends React.Component {
         <ul>
           {readyToBePublishedPosts.map(post => (
             <li key={post._id}>
-              <h1>
-                <Link to={createSlug(post.title)}>{post.title}</Link>
-              </h1>
-              {post.featuredImage ? (
-                <Img fluid={post.featuredImage.asset.fluid} />
-              ) : (
-                ""
-              )}
-              <div dangerouslySetInnerHTML={createMarkup(post.excerpt)} />
+              <PostDetails data={post} />
             </li>
           ))}
         </ul>
@@ -57,7 +52,20 @@ export const allSanityPostQuery = graphql`
               }
             }
           }
+          author {
+            person {
+              name
+            }
+          }
         }
+      }
+    }
+    site {
+      id
+      siteMetadata {
+        title
+        description
+        author
       }
     }
   }
