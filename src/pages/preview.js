@@ -1,6 +1,5 @@
 import React from "react"
 import Layout from "../components/layout"
-import { createMarkup } from "../helpers"
 import * as sanityClient from "@sanity/client"
 import style from "./preview.module.css"
 import PostDetails from "../components/post_details"
