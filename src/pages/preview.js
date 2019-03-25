@@ -2,6 +2,7 @@ import React from "react"
 import Layout from "../components/layout"
 import { createMarkup } from "../helpers"
 import * as sanityClient from "@sanity/client"
+import style from "./preview.module.css"
 
 class PreviewPage extends React.Component {
   constructor(props) {
@@ -64,6 +65,13 @@ class PreviewPage extends React.Component {
     } else {
       return (
         <Layout>
+          {post && post._id.startsWith("drafts.") ? (
+            <em className={style.warning}>
+              This post is still in draft or has been recently unpublished.
+            </em>
+          ) : (
+            ``
+          )}
           <h1>{post.title}</h1>
           <div dangerouslySetInnerHTML={createMarkup(post.body)} />
         </Layout>

@@ -1,12 +1,12 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
+import Img from "gatsby-image"
 import { createSlug, mapEdgesToNodes, createMarkup } from "../helpers"
 
 class IndexPage extends React.Component {
   render() {
     const { data } = this.props
-
     const readyToBePublishedPosts = mapEdgesToNodes(data.allSanityPost).filter(
       post => post && post.isReady
     )
@@ -19,6 +19,11 @@ class IndexPage extends React.Component {
               <h1>
                 <Link to={createSlug(post.title)}>{post.title}</Link>
               </h1>
+              {post.featuredImage ? (
+                <Img fluid={post.featuredImage.asset.fluid} />
+              ) : (
+                ""
+              )}
               <div dangerouslySetInnerHTML={createMarkup(post.excerpt)} />
             </li>
           ))}
@@ -45,6 +50,13 @@ export const allSanityPostQuery = graphql`
           excerpt
           publishedAt
           isReady
+          featuredImage {
+            asset {
+              fluid(maxWidth: 600) {
+                ...GatsbySanityImageFluid
+              }
+            }
+          }
         }
       }
     }

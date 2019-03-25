@@ -1,0 +1,9 @@
+.warning {
+  margin-bottom: 20px;
+  display: block;
+  padding: 10px;
+  border-radius: 5px;
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+}
