@@ -74,7 +74,7 @@ class PreviewPage extends React.Component {
           ) : (
             ``
           )}
-          <PostDetails data={post} />
+          <PostDetails data={post} showBody={true} />
         </Layout>
       )
     }

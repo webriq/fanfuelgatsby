@@ -7,6 +7,7 @@ import { createSlug, createMarkup } from "../helpers"
 
 const PostDetails = props => {
   const post = props && props.data
+  const showBody = props && props.showBody ? true : false
   const pubDate = get(post, "publishedAt", "_createdAt")
   const author = get(post, "author.person.name", "FanFuelHQ")
 
@@ -28,7 +29,11 @@ const PostDetails = props => {
         Published {moment(pubDate).fromNow()} by {author}
       </small>
       {featuredImage ? <Img fluid={post.featuredImage.asset.fluid} /> : ""}
-      <div dangerouslySetInnerHTML={createMarkup(post.excerpt)} />
+      <div
+        dangerouslySetInnerHTML={createMarkup(
+          showBody ? post.body : post.excerpt
+        )}
+      />
     </section>
   )
 }
