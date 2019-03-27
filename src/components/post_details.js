@@ -10,6 +10,15 @@ const PostDetails = props => {
   const pubDate = get(post, "publishedAt", "_createdAt")
   const author = get(post, "author.person.name", "FanFuelHQ")
 
+  // @todo: get image from url asset:
+  // ref: https://www.gatsbyjs.org/packages/gatsby-source-sanity/
+  let featuredImage
+  try {
+    featuredImage = post.featuredImage.asset.fluid
+  } catch (err) {
+    // something went wrong getting featured image
+  }
+
   return (
     <section>
       <h1>
@@ -18,7 +27,7 @@ const PostDetails = props => {
       <small title={moment(pubDate).format("dddd, MMMM Do YYYY, h:mm:ss a")}>
         Published {moment(pubDate).fromNow()} by {author}
       </small>
-      {post.featuredImage ? <Img fluid={post.featuredImage.asset.fluid} /> : ""}
+      {featuredImage ? <Img fluid={post.featuredImage.asset.fluid} /> : ""}
       <div dangerouslySetInnerHTML={createMarkup(post.excerpt)} />
     </section>
   )
